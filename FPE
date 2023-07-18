@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Progress Bar Love</title>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+  <style>
+    body {
+      background-color: #F7EEE7;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      font-family: 'Raleway', sans-serif;
+    }
+    
+    h1 {
+      font-size: 36px;
+      margin-bottom: 20px;
+      transition: opacity 0.5s ease;
+      color: #FF70A6;
+      text-align: center;
+    }
+    
+    .progress-bar {
+      width: 400px;
+      height: 30px;
+      background-color: #FFFFFF;
+      position: relative;
+      overflow: hidden;
+      border-radius: 15px;
+    }
+    
+    .progress-bar-inner {
+      width: 0;
+      height: 100%;
+      background-color: #FF70A6;
+      transition: width 1s ease;
+      border-radius: 15px;
+    }
+    
+    .hidden {
+      display: none;
+    }
+    
+    .quote {
+      font-size: 28px;
+      margin-top: 30px;
+      text-align: center;
+      transition: opacity 2s ease;
+      color: #FF70A6;
+      opacity: 0;
+    }
+    
+    .credits {
+      font-size: 14px;
+      margin-top: 10px;
+      color: #888888;
+    }
+    
+    .emoji-animation {
+      font-size: 64px;
+      opacity: 0;
+      animation-duration: 3s;
+      animation-fill-mode: both;
+    }
+    
+    @keyframes emojiAnim {
+      0% {
+        transform: translateY(100vh) rotate(0deg);
+        opacity: 0;
+      }
+      50% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-100vh) rotate(720deg);
+        opacity: 0;
+      }
+    }
+    
+    .new-quote-btn {
+      display: none;
+      margin-top: 30px;
+      background-color: #FF70A6;
+      color: #FFFFFF;
+      border: none;
+      border-radius: 4px;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: opacity 0.5s ease;
+    }
+    
+    .new-quote-btn:hover {
+      opacity: 0.8;
+    }
+  </style>
+</head>
+<body>
+  <h1 id="title">Progress Bar Love</h1>
+  
+  <div class="progress-bar">
+    <div class="progress-bar-inner"></div>
+  </div>
+  
+  <div class="quote hidden">
+    <p id="quote-text">"Il nostro amore è la connessione più forte che ci unisce ♡"</p>
+    <p id="quote-author"> • Da Dan per Ema <3 •</p>
+  </div>
+  
+  <span class="emoji-animation hidden" id="emoji-animation">♡</span>
+  
+  <p class="credits">Creato con l'IA di OpenAI</p>
+  
+  <script>
+    const emojiAnimation = document.querySelector('#emoji-animation');
+    
+    const progressBar = document.querySelector('.progress-bar-inner');
+    const quoteContainer = document.querySelector('.quote');
+    const title = document.querySelector('#title');
+    const newQuoteBtn = document.querySelector('#new-quote-btn');
+    
+    let progress = 0;
+    let interval;
+    
+    function startProgressBar() {
+      interval = setInterval(() => {
+        progress++;
+        progressBar.style.width = `${progress}%`;
+        
+        if (progress === 100) {
+          clearInterval(interval);
+          title.style.opacity = 0;
+          progressBar.style.opacity = 0;
+          quoteContainer.classList.remove('hidden');
+          emojiAnimation.classList.remove('hidden');
+          animateEmoji();
+          fadeInQuote();
+        }
+      }, 30);
+    }
+    
+    const quotes = [
+      "Sei il mio mood sempre on.",
+      "La nostra love story è un trending topic.",
+      "Mi hai conquistato con i tuoi bit e byte.",
+      "La distanza non è altro che un semplice emoji tra noi.",
+      "Il nostro amore è come un'app che non si chiude mai.",
+      "Grazie a te, ho aggiunto 'relationship goals' alla mia playlist.",
+      "I momenti che passiamo online insieme sono le foto nella galleria del mio cuore.",
+      "La nostra connessione supera qualsiasi lag.",
+      "Il tuo nome è l'unico password che non dimenticherò mai.",
+      "La mia playlist è piena di canzoni che mi ricordano te.",
+      "Sei l'app che ho sempre sognato di scaricare.",
+      "Mi hai conquistato con il tuo swag digitale.",
+      "Il nostro amore è l'upgrade che mi rende felice.",
+      "Sei il mio match perfetto, sia nella vita reale che sullo schermo.",
+      "Il tuo nome è il mio codice di accesso al cuore.",
+      "Non vedo l'ora di fare il login nel tuo abbraccio.",
+      "Sei il mio wallpaper preferito.",
+      "Il tuo amore è un'app che occupa tutto lo spazio del mio cuore.",
+      "Grazie a te, il mio cuore è sempre in modalità notifica.",
+      "Il tuo messaggio è la notifica che mi fa sorridere tutto il giorno."
+    ];
+    
+    let currentQuoteIndex = Math.floor(Math.random() * quotes.length);
+    const quoteText = document.querySelector('#quote-text');
+    quoteText.innerText = `"${quotes[currentQuoteIndex]}"`;
+    
+    function animateEmoji() {
+      emojiAnimation.classList.add('animate__animated', 'animate__heartBeat');
+      emojiAnimation.style.opacity = 1;
+    }
+    
+    function fadeInQuote() {
+      setTimeout(() => {
+        quoteContainer.style.opacity = 1;
+      }, 2000);
+    }
+    
+    startProgressBar();
+  </script>
+</body>
+</html>
+
